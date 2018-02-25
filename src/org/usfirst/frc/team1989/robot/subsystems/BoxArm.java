@@ -8,6 +8,11 @@ import org.usfirst.frc.team1989.robot.*;
  */
 public class BoxArm extends Subsystem {
 	
+	public BoxArm(CANTalon1989 armsLeft, CANTalon1989 armsRight) {
+		this.armsLeft = armsLeft;
+		this.armsRight = armsRight;
+	}
+	
 	CANTalon1989 armsLeft;
 	CANTalon1989 armsRight;
 	
@@ -19,14 +24,14 @@ public class BoxArm extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void boxPull() {
-    		armsLeft.set(1);
-    		armsRight.set(1);
+    public void boxPull(int speed) {
+    		armsLeft.set(speed);
+    		armsRight.set(speed);
     }
     
-    public void boxPush() {
-    		armsLeft.set(-1);
-    		armsRight.set(-1);
+    public void boxPush(int speed) {
+    		armsLeft.set(speed);
+    		armsRight.set(speed);
     }
     
     public void stop() {

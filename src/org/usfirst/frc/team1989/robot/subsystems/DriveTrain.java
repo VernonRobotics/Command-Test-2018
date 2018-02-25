@@ -13,15 +13,21 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class DriveTrain extends Subsystem {
 	
+	public DriveTrain(CANTalon1989 frontLeft, CANTalon1989 backLeft, CANTalon1989 frontRight, CANTalon1989 backRight) {
+		this.frontLeft = frontLeft;
+		this.frontRight = frontRight;
+		this.backLeft = backLeft;
+		this.backRight = backRight;
+		mdrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
+	}
+	
 	CANTalon1989 frontLeft;
 	CANTalon1989 backLeft;
 	CANTalon1989 frontRight;
 	CANTalon1989 backRight;
 	MecanumDrive mdrive;
 	
-	public DriveTrain() {
-		mdrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
-	}
+	
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

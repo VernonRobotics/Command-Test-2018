@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Tower extends Subsystem {
 	
+	public Tower(CANTalon1989 rightMotor, CANTalon1989 leftMotor) {
+		this.rightMotor = rightMotor;
+		this.leftMotor = leftMotor;
+	}
+	
 	CANTalon1989 rightMotor;
 	CANTalon1989 leftMotor;
 

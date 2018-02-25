@@ -47,16 +47,19 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-	public Joystick driveStick = new Joystick(0);
-	public Joystick uStick = new Joystick(1);
-	public Button  inButton = new JoystickButton(uStick, 2),
-			outButton = new JoystickButton(uStick, 1);
+	public static final int leftJoystickPort = 1;
+	public static final int rightJoystickPort = 0;
+	
+	public JsScaled driveStick = new JsScaled(rightJoystickPort);
+	public static JsScaled uStick = new JsScaled(leftJoystickPort);
+	public static Button  inButton = new JoystickButton(uStick, 2);
+	public static Button outButton = new JoystickButton(uStick, 1);
 	
 	public OI() {
-		inButton.whileHeld(new BoxInput());
-		outButton.whileHeld(new BoxOutput());
-		
-		
+		inButton.whenPressed(new BoxInput(1));
+		inButton.whenReleased(new BoxInput(0));
+		outButton.whenPressed(new BoxOutput(-1));
+		outButton.whenReleased(new BoxOutput(0));
 	}
 	
 	public Joystick getUStick() {

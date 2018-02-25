@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1989.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,6 +22,7 @@ import org.usfirst.frc.team1989.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1989.robot.subsystems.Tower;
 import org.usfirst.frc.team1989.robot.subsystems.subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 /**
@@ -35,9 +37,9 @@ public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static final subsystem subsystem
 	= new subsystem();
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final BoxArm boxArm = new BoxArm();
-	public static final Tower tower = new Tower();
+	public static final DriveTrain driveTrain = new DriveTrain(RobotMap.frontLeft, RobotMap.backLeft, RobotMap.frontRight, RobotMap.backRight);
+	public static final BoxArm boxArm = new BoxArm(RobotMap.armsLeft, RobotMap.armsRight);
+	public static final Tower tower = new Tower(RobotMap.towerRight, RobotMap.towerRight);
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -57,9 +59,10 @@ public class Robot extends TimedRobot {
 		RobotMap.frontRight.setInverted(true);
 		RobotMap.backLeft.setInverted(true);
 		RobotMap.armsRight.setInverted(true);
+		RobotMap.towerLeft.set(ControlMode.Follower, 5);
 		RobotMap.towerLeft.setNeutralMode(NeutralMode.Brake);
 		RobotMap.towerRight.setNeutralMode(NeutralMode.Brake);
-		
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
