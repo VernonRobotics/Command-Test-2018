@@ -7,14 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BoxInput extends Command {
-	
-	private int speed;
+public class MotorDelay extends Command {
 
-    public BoxInput(int speed) {
+    public MotorDelay() {
         // Use requires() here to declare subsystem dependencies
-    		requires(Robot.boxArm);
-    		this.speed = speed;
+        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +20,7 @@ public class BoxInput extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		Robot.boxArm.armControl(speed);
+    		
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,7 +30,6 @@ public class BoxInput extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    		Robot.boxArm.stop();
     }
 
     // Called when another command which requires one or more of the same

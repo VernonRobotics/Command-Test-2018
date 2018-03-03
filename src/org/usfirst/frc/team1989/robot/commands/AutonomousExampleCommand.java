@@ -1,21 +1,25 @@
 package org.usfirst.frc.team1989.robot.commands;
 
 import org.usfirst.frc.team1989.robot.Robot;
+import org.usfirst.frc.team1989.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousCommand extends CommandGroup {
+public class AutonomousExampleCommand extends CommandGroup {
 
-    public AutonomousCommand() {
+    public AutonomousExampleCommand() {
     		requires(Robot.driveTrain);
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
+    		requires(Robot.tower);
+    		requires(Robot.boxArm);
+    		addSequential(new AutoDrive(230, 1, 0, RobotMap.r1));
+    		addSequential(new Delay(1));
+    		addSequential(new AutoRotate(-45));
+    		addSequential(new Delay(1));
+    		addSequential(new AutoTower(2, 1));
+    		addSequential(new Delay(1));
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

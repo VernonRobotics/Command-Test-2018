@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BoxInput extends Command {
-	
-	private int speed;
+public class AutoArm extends Command {
 
-    public BoxInput(int speed) {
-        // Use requires() here to declare subsystem dependencies
-    		requires(Robot.boxArm);
-    		this.speed = speed;
+	double speed;
+	
+    public AutoArm(double speed) {
+        requires(Robot.boxArm);
+        this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    		setTimeout(6);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ public class BoxInput extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

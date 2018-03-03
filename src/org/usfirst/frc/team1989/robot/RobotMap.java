@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team1989.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -15,15 +19,6 @@ package org.usfirst.frc.team1989.robot;
  * floating around.
  */
 public class RobotMap {
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
-
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
 	
 	static CANTalon1989 frontLeft = new CANTalon1989(6);
 	static CANTalon1989 backLeft = new CANTalon1989(7);
@@ -33,5 +28,13 @@ public class RobotMap {
 	static CANTalon1989 armsRight = new CANTalon1989(1);
 	static CANTalon1989 towerLeft = new CANTalon1989(4);
 	static CANTalon1989 towerRight = new CANTalon1989(5);
-
+	
+	static Servo servo = new Servo(0);
+	public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();  
+	
+	public static Timer autoTimer = new Timer();
+	
+	public static Ultrasonic r1 = new Ultrasonic(9,8);
+	public static Ultrasonic r2 = new Ultrasonic(7,6);
+	public static Ultrasonic r3 = new Ultrasonic(5,4);
 }

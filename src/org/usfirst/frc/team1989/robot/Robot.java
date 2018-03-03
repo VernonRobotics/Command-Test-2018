@@ -15,12 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1989.robot.RobotMap;
-import org.usfirst.frc.team1989.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1989.robot.subsystems.BoxArm;
 import org.usfirst.frc.team1989.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team1989.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1989.robot.subsystems.Tower;
-import org.usfirst.frc.team1989.robot.subsystems.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -34,10 +31,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
  */
 public class Robot extends TimedRobot {
 	
-	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
-	public static final subsystem subsystem
-	= new subsystem();
-	public static final DriveTrain driveTrain = new DriveTrain(RobotMap.frontLeft, RobotMap.backLeft, RobotMap.frontRight, RobotMap.backRight);
+	public static final DriveTrain driveTrain = new DriveTrain(RobotMap.frontLeft, RobotMap.backLeft, RobotMap.frontRight, RobotMap.backRight, RobotMap.gyro);
 	public static final BoxArm boxArm = new BoxArm(RobotMap.armsLeft, RobotMap.armsRight);
 	public static final Tower tower = new Tower(RobotMap.towerRight, RobotMap.towerRight);
 	public static OI m_oi;
@@ -52,7 +46,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		RobotMap.frontLeft.setInverted(true);
@@ -63,6 +57,7 @@ public class Robot extends TimedRobot {
 		RobotMap.towerLeft.setNeutralMode(NeutralMode.Brake);
 		RobotMap.towerRight.setNeutralMode(NeutralMode.Brake);
 		CameraServer.getInstance().startAutomaticCapture();
+		RobotMap.r1.setAutomaticMode(true);
 	}
 
 	/**

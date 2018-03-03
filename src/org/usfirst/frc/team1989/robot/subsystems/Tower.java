@@ -32,6 +32,10 @@ public class Tower extends Subsystem {
 		leftMotor.set(-joy.getY());
 	}
 	
+    public void autoTowerControl(double speed) {
+    		rightMotor.set(speed);
+    		leftMotor.set(speed);
+    }
 	
 	public void towerStop() {
 		rightMotor.set(0);
