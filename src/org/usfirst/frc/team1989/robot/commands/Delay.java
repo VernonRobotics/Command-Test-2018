@@ -16,33 +16,30 @@ public class Delay extends Command {
     		this.time = time;
     }
     
-    // Called just before this Command runs the first time
     protected void initialize() {
+    		//stops, resets, and starts timer found in RobotMap.java
     		RobotMap.autoTimer.stop();
     		RobotMap.autoTimer.reset();
     		RobotMap.autoTimer.start();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    		//check is time has passed
     		if(RobotMap.autoTimer.get() >= time) {
     			timerFinished = true;
     		}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return timerFinished;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
+    		//stops timer and resets it when the command has finished
     		RobotMap.autoTimer.stop();
     		RobotMap.autoTimer.reset();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

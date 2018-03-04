@@ -10,24 +10,22 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutoRotate extends Command {
-
-    public AutoRotate(double angle) {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveTrain);
-        this.angle = angle;
-    }
-    
+	 
     double angle;
     ADXRS450_Gyro gyro;
     boolean reachedAngle = false;
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    		RobotMap.gyro.reset();
+    public AutoRotate(double angle) {
+        requires(Robot.driveTrain);
+        this.angle = angle;
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    protected void initialize() {
+    		RobotMap.gyro.reset();    //resets gyro angle 
+    }
+
     protected void execute() {
+    		//checks if the desired angle is reached
     		double gyroAngle = gyro.getAngle();
     		if (Math.abs(gyroAngle) >= Math.abs(angle)) {
     			reachedAngle = true;
@@ -36,19 +34,14 @@ public class AutoRotate extends Command {
     		}    		
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return reachedAngle;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     		Robot.driveTrain.driveStop();
-		setTimeout(1);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

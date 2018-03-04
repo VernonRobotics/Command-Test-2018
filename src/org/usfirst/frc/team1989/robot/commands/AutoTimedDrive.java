@@ -20,28 +20,22 @@ public class AutoTimedDrive extends Command {
         this.xSpeed = xSpeed;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    		setTimeout(time);
+    		setTimeout(time);    //adds delay to command 
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		Robot.driveTrain.autoDrive(ySpeed, xSpeed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut();    //is true when time is reached 
     }
 
-    // Called once after isFinished returns true
     protected void end() {
-    		Robot.driveTrain.driveStop();
+    		Robot.driveTrain.driveStop();    //sets motor value to zero
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

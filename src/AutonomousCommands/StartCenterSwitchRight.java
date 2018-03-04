@@ -1,0 +1,34 @@
+package AutonomousCommands;
+
+import org.usfirst.frc.team1989.robot.Robot;
+import org.usfirst.frc.team1989.robot.RobotMap;
+import org.usfirst.frc.team1989.robot.commands.AutoDrive;
+import org.usfirst.frc.team1989.robot.commands.AutoTimedDrive;
+import org.usfirst.frc.team1989.robot.commands.Delay;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+
+public class StartCenterSwitchRight extends CommandGroup {
+	
+	//place holder value to be determined for timed drive
+	double x = 0;
+
+    public StartCenterSwitchRight() {
+    		requires(Robot.driveTrain); 
+    		//requires(Robot.tower);
+    		//requires(Robot.boxArm);
+    		
+    		//TODO : add command for start of match
+    		
+		addSequential(new AutoDrive(AutoDistances.startToSwitchSide, 0, 0.5, RobotMap.r1));
+		addSequential(new Delay(1));
+		addSequential(new AutoTimedDrive(x, -0.5, 0));
+		addSequential(new Delay(1));
+		addSequential(new AutoDrive(AutoDistances.closePathToLeftScale, 0, 0.5, RobotMap.r1));
+		addSequential(new Delay(1));
+		
+		//TODO : add tower and box output
+		
+    }
+}

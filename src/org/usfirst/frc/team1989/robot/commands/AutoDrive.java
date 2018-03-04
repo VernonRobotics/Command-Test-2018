@@ -23,33 +23,28 @@ public class AutoDrive extends Command {
     		this.rf = rf;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    		// determines the the range finder value to move to
     		double currentDistance = rf.getRangeInches();
     		rangeFinderDistance = currentDistance - distance;
+    		//checks if the robot has moved the set distance 
+    		if (rf.getRangeInches() <= rangeFinderDistance) {
+    			reachedDistance = true;
+    		}
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		Robot.driveTrain.autoDrive(ySpeed, xSpeed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    		if (rf.getRangeInches() <= rangeFinderDistance) {
-    			reachedDistance = true;
-    		}
-        return reachedDistance;
+    		return reachedDistance;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
-    		Robot.driveTrain.driveStop();
-    		//setTimeout(1);
+    		Robot.driveTrain.driveStop();    //stops the drive train motors 
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

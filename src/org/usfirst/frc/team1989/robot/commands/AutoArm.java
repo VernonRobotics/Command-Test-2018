@@ -16,28 +16,22 @@ public class AutoArm extends Command {
         this.speed = speed;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    		setTimeout(6);
+    		setTimeout(6);    // sets a timed clock that will return true once the set time is reached
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		Robot.boxArm.armControl(speed);
+    		Robot.boxArm.armControl(speed);    // moves motors at the desired speed 
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut();	    // is true when time runs out
     }
 
-    // Called once after isFinished returns true
     protected void end() {
-    		Robot.boxArm.stop();
+    		Robot.boxArm.stop();		// sets motors to zero 
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }
