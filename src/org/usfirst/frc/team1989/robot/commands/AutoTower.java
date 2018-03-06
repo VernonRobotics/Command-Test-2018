@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoTower extends Command {
 	
     double time;
-    double direction;
+    double speed;
 
-    public AutoTower(double time, double direction) {
+    public AutoTower(double time, double speed) {
     		requires(Robot.tower);
     		this.time = time;
-    		this.direction = direction;
+    		this.speed = speed;
     }
 
     protected void initialize() {
@@ -23,7 +23,7 @@ public class AutoTower extends Command {
     }
 
     protected void execute() {
-    		Robot.tower.autoTowerControl(direction);
+    		Robot.tower.autoTowerControl(speed);
     }
 
     protected boolean isFinished() {

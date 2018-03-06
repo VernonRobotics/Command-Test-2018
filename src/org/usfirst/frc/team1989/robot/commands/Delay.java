@@ -9,11 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Delay extends Command {
 
-    double time;
     boolean timerFinished = false;
 
-    public Delay(double time) {
-    		this.time = time;
+    public Delay() {
     }
     
     protected void initialize() {
@@ -25,7 +23,7 @@ public class Delay extends Command {
 
     protected void execute() {
     		//check is time has passed
-    		if(RobotMap.autoTimer.get() >= time) {
+    		if(RobotMap.autoTimer.get() >= 1) {
     			timerFinished = true;
     		}
     }

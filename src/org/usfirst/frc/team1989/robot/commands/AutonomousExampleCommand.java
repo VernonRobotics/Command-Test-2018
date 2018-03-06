@@ -15,11 +15,11 @@ public class AutonomousExampleCommand extends CommandGroup {
     		requires(Robot.tower);
     		requires(Robot.boxArm);
     		addSequential(new AutoDrive(230, 1, 0, RobotMap.r1));
-    		addSequential(new Delay(1));
+    		addSequential(new Delay());
     		addSequential(new AutoRotate(-45));
-    		addSequential(new Delay(1));
+    		addSequential(new Delay());
     		addSequential(new AutoTower(2, 1));
-    		addSequential(new Delay(1));
+    		addSequential(new Delay());
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
