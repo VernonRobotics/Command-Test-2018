@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1989.robot.subsystems;
 
 import org.usfirst.frc.team1989.robot.CANTalon1989;
+import org.usfirst.frc.team1989.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,6 +23,7 @@ public class DriveTrain extends Subsystem {
 	
 	static double error = 0;
 	static double kP = 0.00975;
+
 	
 	public DriveTrain(CANTalon1989 frontLeft, CANTalon1989 backLeft, CANTalon1989 frontRight, CANTalon1989 backRight, ADXRS450_Gyro gyro) {
 		this.frontLeft = frontLeft;
@@ -30,10 +32,11 @@ public class DriveTrain extends Subsystem {
 		this.backRight = backRight;
 		this.gyro = gyro;
 		mdrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
+		mdrive.setSafetyEnabled(true);
 	}
 	
     public void initDefaultCommand() {
-        //setDefaultCommand(new Drive());
+        setDefaultCommand(new Drive());
     }
     
     public void moveRobot(Joystick joy) {

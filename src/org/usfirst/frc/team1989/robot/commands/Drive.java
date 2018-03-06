@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1989.robot.commands;
 
+import org.usfirst.frc.team1989.robot.OI;
 import org.usfirst.frc.team1989.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,7 +14,7 @@ public class Drive extends Command {
     }
 
     protected void execute() {
-    		Robot.driveTrain.moveRobot(Robot.m_oi.getDriveStick());    //gets the value of the JsScaled DriveStick
+    		Robot.driveTrain.moveRobot(OI.driveStick);    //gets the value of the DriveStick
     }
 
     protected boolean isFinished() {

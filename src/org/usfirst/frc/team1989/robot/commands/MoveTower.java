@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1989.robot.commands;
 
+import org.usfirst.frc.team1989.robot.OI;
 import org.usfirst.frc.team1989.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,7 +18,7 @@ public class MoveTower extends Command {
     }
 
     protected void execute() {
-    		Robot.tower.towerControl(Robot.m_oi.getUStick());    //gets the value of the UStick
+    		Robot.tower.towerControl(OI.uStick);    //send the value of the UStick to the tower subsystem
     }
 
     protected boolean isFinished() {

@@ -17,6 +17,8 @@ public class Tower extends Subsystem {
 	public Tower(CANTalon1989 rightMotor, CANTalon1989 leftMotor) {
 		this.rightMotor = rightMotor;
 		this.leftMotor = leftMotor;
+		leftMotor.setSafetyEnabled(true);
+		rightMotor.setSafetyEnabled(true);
 	}
 
     public void initDefaultCommand() {

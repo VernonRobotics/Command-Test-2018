@@ -23,8 +23,8 @@ public class OI {
 	public static final int leftJoystickPort = 1;
 	public static final int rightJoystickPort = 0;
 	
-	public JsScaled driveStick = new JsScaled(rightJoystickPort);
-	public static JsScaled uStick = new JsScaled(leftJoystickPort);
+	public static Joystick driveStick = new Joystick(rightJoystickPort);
+	public static Joystick uStick = new Joystick(leftJoystickPort);
 	public static Button  inButton = new JoystickButton(uStick, 2);
 	public static Button outButton = new JoystickButton(uStick, 1);
 	
@@ -34,13 +34,5 @@ public class OI {
 		inButton.whenReleased(new BoxInput(0));
 		outButton.whenPressed(new BoxOutput(-1));
 		outButton.whenReleased(new BoxOutput(0));
-	}
-	
-	public Joystick getUStick() {
-		return uStick;
-	}
-	
-	public Joystick getDriveStick() {
-		return driveStick;
 	}
 }
