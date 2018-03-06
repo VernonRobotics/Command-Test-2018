@@ -23,7 +23,7 @@ public class Delay extends Command {
 
     protected void execute() {
     		//check is time has passed
-    		if(RobotMap.autoTimer.get() >= 1) {
+    		if(RobotMap.autoTimer.get() >= 0.5) {
     			timerFinished = true;
     		}
     }

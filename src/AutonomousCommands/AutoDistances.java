@@ -21,22 +21,4 @@ public class AutoDistances
 	public final static double closePathToLeftScale = 244.65;
 	public final static double closePathToRightScale = 73.12; //from right switch to line up
 	public final static double switchToRightScale = 202.65;
-
-	/*public static double getStartingDistanceToEdge{ return startingDistanceToEdge; }
-	public static double getStartToClosePath{ return startToClosePath; }
-	public static double getStartToSwitch{ return startToSwitch; }
-	public static double getStartToMidPath{ return startToMidPath; }
-	public static double getMidPathCrossSwitch{ return midPathCrossSwitch; }
-	public static double getMidPathToSwitch{ return midPathToSwitch; } //returns a negative because the movement is made backwards only
-	public static double getAdjustForScale{ return adjustForScale; }
-	public static double getMidPathCrossScale{ return midPathCrossScale; }
-	public static double getMidPathToScale{ return midPathToScale; }
-	public static double getStartToSwitchSide{ return startToSwitchSide; }
-	public static double getAdjustForSwitch{ return adjustForSwitch; }
-	public static double getClosePathCrossLeftSwitch{ return closePathCrossLeftSwitch; }
-	public static double getClosePathToSwitch{ return closePathToSwitch; }
-	public static double getClosePathCrossLeftScale{ return closePathCrossLeftScale; }
-	public static double getClosePathToLeftScale{ return closePathToLeftScale; }
-	public static double getClosePathToRightScale{ return closePathToRightScale; }
-	public static double getSwitchToRightScale{ return switchToRightScale; }*/
 }

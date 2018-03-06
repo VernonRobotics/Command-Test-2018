@@ -10,7 +10,6 @@ package org.usfirst.frc.team1989.robot;
 import org.usfirst.frc.team1989.robot.commands.BoxInput;
 import org.usfirst.frc.team1989.robot.commands.BoxOutput;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -23,8 +22,8 @@ public class OI {
 	public static final int leftJoystickPort = 1;
 	public static final int rightJoystickPort = 0;
 	
-	public static Joystick driveStick = new Joystick(rightJoystickPort);
-	public static Joystick uStick = new Joystick(leftJoystickPort);
+	public static JsScaled driveStick = new JsScaled(rightJoystickPort);
+	public static JsScaled uStick = new JsScaled(leftJoystickPort);
 	public static Button  inButton = new JoystickButton(uStick, 2);
 	public static Button outButton = new JoystickButton(uStick, 1);
 	

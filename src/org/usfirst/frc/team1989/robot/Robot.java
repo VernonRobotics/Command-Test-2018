@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
 	public static final BoxArm boxArm = new BoxArm(RobotMap.armsLeft, RobotMap.armsRight);
 	public static final Tower tower = new Tower(RobotMap.towerRight, RobotMap.towerRight);
 	public static OI m_oi;
+	
+	public String gameData;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -58,6 +60,59 @@ public class Robot extends TimedRobot {
 		RobotMap.towerRight.setNeutralMode(NeutralMode.Brake);
 		CameraServer.getInstance().startAutomaticCapture();
 		RobotMap.r1.setAutomaticMode(true);
+		
+		m_autonomousCommand = new AutonomousCommands.Test();
+		/*gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if(gameData.length() > 0) {
+			
+			if (SmartDashboard.getBoolean("DB/Button 0", true)) {
+						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
+							if (gameData.charAt(1) == 'L') {
+								m_autonomousCommand = new AutonomousCommands.StartLeftScaleLeft();
+							} else {
+								m_autonomousCommand = new AutonomousCommands.StartLeftScaleRight();
+							}
+						} else {
+							if (gameData.charAt(0) == 'L') {
+								m_autonomousCommand = new AutonomousCommands.StartLeftSwitchLeft();
+							} else {
+								m_autonomousCommand = new AutonomousCommands.StartLeftSwitchRight();
+							}
+						}
+			
+					} else if (SmartDashboard.getBoolean("DB/Button 1", true)) {
+						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
+							if (gameData.charAt(1) == 'L') {
+								m_autonomousCommand = new AutonomousCommands.StartCenterScaleLeft();
+							} else {
+								m_autonomousCommand = new AutonomousCommands.StartCenterScaleRight();
+							}
+						} else {
+							if (gameData.charAt(0) == 'L') {
+								m_autonomousCommand = new AutonomousCommands.StartCenterSwitchLeft();
+							} else {
+								m_autonomousCommand = new AutonomousCommands.StartCenterSwitchRight();
+							}
+						}
+					} else if (SmartDashboard.getBoolean("DB/Button 2", true)) {
+						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
+							if (gameData.charAt(1) == 'L') {
+								m_autonomousCommand = new AutonomousCommands.StartRightScaleLeft();
+							} else {
+								m_autonomousCommand = new AutonomousCommands.StartRightScaleRight();
+							}
+						} else {
+						if (gameData.charAt(0) == 'L') {
+							m_autonomousCommand = new AutonomousCommands.StartRightSwitchLeft();
+						} else {
+							m_autonomousCommand = new AutonomousCommands.StartRightSwitchRight();
+							}
+						}
+					} else {
+						// DriveForward.run();
+			 		}
+			}*/
 	}
 
 	/**
@@ -89,6 +144,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
+		
+		
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

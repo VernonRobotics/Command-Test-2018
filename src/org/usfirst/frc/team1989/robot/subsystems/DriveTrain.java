@@ -41,16 +41,16 @@ public class DriveTrain extends Subsystem {
     
     public void moveRobot(Joystick joy) {
     		//takes in DriveStick values to move the robot
-    		double moveY = -joy.getY();
-    		double moveX = joy.getX();
-    		double moveTwist = joy.getZ();
+    		double moveY = joy.getY();
+    		double moveX = -joy.getX();
+    		double moveTwist = -joy.getZ();
     		mdrive.driveCartesian(moveX, moveY, moveTwist, 0);
     		
     }
     
     public void autoDrive(double ySpeed, double xSpeed) {
     		//method to move the robot in the x and y plain during autonomous
-    		mdrive.driveCartesian(ySpeed, xSpeed, 0);    
+    		mdrive.driveCartesian(ySpeed, xSpeed, 0);   
     }
     
     public void autoRotate(double angle) {
