@@ -1,4 +1,4 @@
-package AutonomousCommands;
+package org.usfirst.frc.team1989.robot.commands.auto;
 
 import org.usfirst.frc.team1989.robot.Robot;
 import org.usfirst.frc.team1989.robot.RobotMap;
@@ -23,7 +23,7 @@ public class StartLeftSwitchLeft extends CommandGroup {
     		requires(Robot.boxArm);
     	
     		addParallel(new AutoTower(1, 1));
-		addSequential(new AutoDrive(AutoDistances.startToSwitch, 0, 0.5, RobotMap.r1));
+		//addSequential(new AutoDrive(AutoDistances.startToSwitch, 0, 0.5, RobotMap.r1));
 		addSequential(new Delay());
 		addSequential(new AutoRotate(90));
 		addSequential(new Delay());

@@ -1,4 +1,4 @@
-package AutonomousCommands;
+package org.usfirst.frc.team1989.robot.commands.auto;
 
 public class AutoDistances
 {

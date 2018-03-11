@@ -16,14 +16,14 @@ public class Delay extends Command {
     
     protected void initialize() {
     		//stops, resets, and starts timer found in RobotMap.java
-    		RobotMap.autoTimer.stop();
-    		RobotMap.autoTimer.reset();
-    		RobotMap.autoTimer.start();
+    		RobotMap.delayTimer.stop();
+    		RobotMap.delayTimer.reset();
+    		RobotMap.delayTimer.start();
     }
 
     protected void execute() {
     		//check is time has passed
-    		if(RobotMap.autoTimer.get() >= 0.5) {
+    		if(RobotMap.delayTimer.get() >= 0.5) {
     			timerFinished = true;
     		}
     }
@@ -34,8 +34,8 @@ public class Delay extends Command {
 
     protected void end() {
     		//stops timer and resets it when the command has finished
-    		RobotMap.autoTimer.stop();
-    		RobotMap.autoTimer.reset();
+    		RobotMap.delayTimer.stop();
+    		RobotMap.delayTimer.reset();
     }
 
     protected void interrupted() {

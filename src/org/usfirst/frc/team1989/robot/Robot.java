@@ -15,12 +15,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1989.robot.RobotMap;
+import org.usfirst.frc.team1989.robot.commands.auto.Test;
 import org.usfirst.frc.team1989.robot.subsystems.BoxArm;
 import org.usfirst.frc.team1989.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1989.robot.subsystems.Tower;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,7 +43,7 @@ public class Robot extends TimedRobot {
 	public String gameData;
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,9 +52,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		//m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		//autoChooser.addDefault("Default Auto", new DontMove());
+		//autoChooser.addObject("My Auto", new MyAutoCommand());
+		//SmartDashboard.putData("Auto mode", autoChooser);
 		RobotMap.frontLeft.setInverted(true);
 		RobotMap.frontRight.setInverted(true);
 		RobotMap.backLeft.setInverted(true);
@@ -59,60 +63,9 @@ public class Robot extends TimedRobot {
 		RobotMap.towerLeft.setNeutralMode(NeutralMode.Brake);
 		RobotMap.towerRight.setNeutralMode(NeutralMode.Brake);
 		CameraServer.getInstance().startAutomaticCapture();
-		RobotMap.r1.setAutomaticMode(true);
+		//RobotMap.r1.setAutomaticMode(true);
 		
-		m_autonomousCommand = new AutonomousCommands.Test();
-		/*gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
-		if(gameData.length() > 0) {
-			
-			if (SmartDashboard.getBoolean("DB/Button 0", true)) {
-						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
-							if (gameData.charAt(1) == 'L') {
-								m_autonomousCommand = new AutonomousCommands.StartLeftScaleLeft();
-							} else {
-								m_autonomousCommand = new AutonomousCommands.StartLeftScaleRight();
-							}
-						} else {
-							if (gameData.charAt(0) == 'L') {
-								m_autonomousCommand = new AutonomousCommands.StartLeftSwitchLeft();
-							} else {
-								m_autonomousCommand = new AutonomousCommands.StartLeftSwitchRight();
-							}
-						}
-			
-					} else if (SmartDashboard.getBoolean("DB/Button 1", true)) {
-						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
-							if (gameData.charAt(1) == 'L') {
-								m_autonomousCommand = new AutonomousCommands.StartCenterScaleLeft();
-							} else {
-								m_autonomousCommand = new AutonomousCommands.StartCenterScaleRight();
-							}
-						} else {
-							if (gameData.charAt(0) == 'L') {
-								m_autonomousCommand = new AutonomousCommands.StartCenterSwitchLeft();
-							} else {
-								m_autonomousCommand = new AutonomousCommands.StartCenterSwitchRight();
-							}
-						}
-					} else if (SmartDashboard.getBoolean("DB/Button 2", true)) {
-						if (SmartDashboard.getBoolean("DB/Button 3", true)) {
-							if (gameData.charAt(1) == 'L') {
-								m_autonomousCommand = new AutonomousCommands.StartRightScaleLeft();
-							} else {
-								m_autonomousCommand = new AutonomousCommands.StartRightScaleRight();
-							}
-						} else {
-						if (gameData.charAt(0) == 'L') {
-							m_autonomousCommand = new AutonomousCommands.StartRightSwitchLeft();
-						} else {
-							m_autonomousCommand = new AutonomousCommands.StartRightSwitchRight();
-							}
-						}
-					} else {
-						// DriveForward.run();
-			 		}
-			}*/
+		m_autonomousCommand = new Test();
 	}
 
 	/**
@@ -122,7 +75,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		RobotMap.gyro.reset();
 	}
 
 	@Override
@@ -143,7 +96,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		//m_autonomousCommand = (Command) autoChooser.getSelected();
 		
 		
 

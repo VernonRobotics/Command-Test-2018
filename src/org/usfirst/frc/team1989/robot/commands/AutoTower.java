@@ -19,11 +19,11 @@ public class AutoTower extends Command {
     }
 
     protected void initialize() {
-    		setTimeout(time);
+    		setTimeout(this.time);
     }
 
     protected void execute() {
-    		Robot.tower.autoTowerControl(speed);
+    		Robot.tower.autoTowerControl(this.speed);
     }
 
     protected boolean isFinished() {

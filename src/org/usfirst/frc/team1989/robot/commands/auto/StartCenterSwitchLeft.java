@@ -1,8 +1,6 @@
-package AutonomousCommands;
+package org.usfirst.frc.team1989.robot.commands.auto;
 
 import org.usfirst.frc.team1989.robot.Robot;
-import org.usfirst.frc.team1989.robot.RobotMap;
-import org.usfirst.frc.team1989.robot.commands.AutoDrive;
 import org.usfirst.frc.team1989.robot.commands.AutoTimedDrive;
 import org.usfirst.frc.team1989.robot.commands.AutoTower;
 import org.usfirst.frc.team1989.robot.commands.BoxOutput;
@@ -22,15 +20,13 @@ public class StartCenterSwitchLeft extends CommandGroup {
     		requires(Robot.boxArm);
     		
     		addParallel(new AutoTower(1, 1));
-		addSequential(new AutoDrive(AutoDistances.startToClosePath, 0, 0.5, RobotMap.r1));
+		addSequential(new AutoTimedDrive(0.5, 0, 0.4));
 		addSequential(new Delay());
-		addSequential(new AutoTimedDrive(x, -0.5, 0));
+		addSequential(new AutoTimedDrive(2, -0.6, 0));
 		addSequential(new Delay());
-		addSequential(new AutoDrive(AutoDistances.closePathToLeftScale, 0, 0.5, RobotMap.r1));
+		addSequential(new AutoTower(2, 1));
 		addSequential(new Delay());
-		addSequential(new Delay());
-		addSequential(new AutoTimedDrive(x, 1, 0));
-		addSequential(new Delay());
+		addSequential(new AutoTimedDrive(2.5, 0, 0.4));
 		addSequential(new BoxOutput(-1), 4);
     }
 }

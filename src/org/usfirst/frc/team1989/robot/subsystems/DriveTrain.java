@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
 		this.backLeft = backLeft;
 		this.backRight = backRight;
 		this.gyro = gyro;
-		mdrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
+		mdrive = new MecanumDrive(this.frontLeft, this.backLeft, this.frontRight, this.backRight);
 		mdrive.setSafetyEnabled(true);
 	}
 	
@@ -44,8 +44,7 @@ public class DriveTrain extends Subsystem {
     		double moveY = joy.getY();
     		double moveX = -joy.getX();
     		double moveTwist = -joy.getZ();
-    		mdrive.driveCartesian(moveX, moveY, moveTwist, 0);
-    		
+    		mdrive.driveCartesian(moveX, moveY, moveTwist);
     }
     
     public void autoDrive(double ySpeed, double xSpeed) {

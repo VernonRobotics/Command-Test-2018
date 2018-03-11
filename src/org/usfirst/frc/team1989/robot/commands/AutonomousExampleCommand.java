@@ -14,7 +14,7 @@ public class AutonomousExampleCommand extends CommandGroup {
     		requires(Robot.driveTrain);
     		requires(Robot.tower);
     		requires(Robot.boxArm);
-    		addSequential(new AutoDrive(230, 1, 0, RobotMap.r1));
+    		//addSequential(new AutoDrive(230, 1, 0, RobotMap.r1));
     		addSequential(new Delay());
     		addSequential(new AutoRotate(-45));
     		addSequential(new Delay());
