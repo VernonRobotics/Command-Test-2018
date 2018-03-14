@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
 	public String gameData;
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> autoChooser = new SendableChooser<>();
+	//SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
