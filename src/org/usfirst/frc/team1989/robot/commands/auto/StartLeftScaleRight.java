@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1989.robot.commands.auto;
 
 import org.usfirst.frc.team1989.robot.Robot;
-import org.usfirst.frc.team1989.robot.RobotMap;
-import org.usfirst.frc.team1989.robot.commands.AutoDrive;
 import org.usfirst.frc.team1989.robot.commands.AutoRotate;
 import org.usfirst.frc.team1989.robot.commands.AutoTimedDrive;
 import org.usfirst.frc.team1989.robot.commands.AutoTower;

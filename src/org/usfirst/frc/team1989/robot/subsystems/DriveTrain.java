@@ -1,10 +1,10 @@
 package org.usfirst.frc.team1989.robot.subsystems;
 
 import org.usfirst.frc.team1989.robot.CANTalon1989;
+import org.usfirst.frc.team1989.robot.JsScaled;
 import org.usfirst.frc.team1989.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
@@ -20,6 +20,9 @@ public class DriveTrain extends Subsystem {
 	CANTalon1989 backRight;
 	ADXRS450_Gyro gyro;
 	MecanumDrive mdrive;
+	
+	public double leftCurrent;
+	public double rightCurrent;
 	
 	static double error = 0;
 	static double kP = 0.00975;
@@ -39,17 +42,21 @@ public class DriveTrain extends Subsystem {
         setDefaultCommand(new Drive());
     }
     
-    public void moveRobot(Joystick joy) {
+    public void moveRobot(JsScaled joy) {
     		//takes in DriveStick values to move the robot
-    		double moveY = joy.getY();
-    		double moveX = -joy.getX();
-    		double moveTwist = -joy.getZ();
+    		double moveY = joy.sgetY();
+    		double moveX = -joy.sgetX();
+    		double moveTwist = -joy.sgetTwist();
     		mdrive.driveCartesian(moveX, moveY, moveTwist);
+    		leftCurrent = frontLeft.getOutputCurrent();
+    		rightCurrent = frontRight.getOutputCurrent();
     }
     
-    public void autoDrive(double ySpeed, double xSpeed) {
-    		//method to move the robot in the x and y plain during autonomous
-    		mdrive.driveCartesian(ySpeed, xSpeed, 0);   
+    public void autoDrive(double xSpeed, double ySpeed) {
+    		//method to move the robot in the x and y plane during autonomous
+    		mdrive.driveCartesian(xSpeed, ySpeed, 0);   
+    		leftCurrent = frontLeft.getOutputCurrent();
+    		rightCurrent = frontRight.getOutputCurrent();
     }
     
     public void autoRotate(double angle) {

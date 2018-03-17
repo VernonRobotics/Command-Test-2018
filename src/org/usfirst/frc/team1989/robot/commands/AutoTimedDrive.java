@@ -12,12 +12,13 @@ public class AutoTimedDrive extends Command {
 	double time;
 	double ySpeed;
 	double xSpeed;
+	boolean currentReached;
 
-    public AutoTimedDrive(double time, double ySpeed, double xSpeed) {
+    public AutoTimedDrive(double time, double xSpeed, double ySpeed) {
         requires(Robot.driveTrain);
         this.time = time;
-        this.ySpeed = ySpeed;
         this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
     }
 
     protected void initialize() {
@@ -25,15 +26,18 @@ public class AutoTimedDrive extends Command {
     }
 
     protected void execute() {
-    		Robot.driveTrain.autoDrive(ySpeed, xSpeed);
+    		Robot.driveTrain.autoDrive(xSpeed, ySpeed);
+    		if(Robot.driveTrain.leftCurrent > 30 && Robot.driveTrain.rightCurrent > 30) {
+    			currentReached = true;
+    		}
     }
 
     protected boolean isFinished() {
-        return isTimedOut();    //is true when time is reached 
+        return isTimedOut()||currentReached;    //is true when time is reached or when both front motors use over 30 amps
     }
 
     protected void end() {
-    		Robot.driveTrain.driveStop();    //sets motor value to zero
+    		Robot.driveTrain.driveStop();    //sets motor value to zero at end of command
     }
 
     protected void interrupted() {

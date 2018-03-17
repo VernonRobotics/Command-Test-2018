@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1989.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,12 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1989.robot.RobotMap;
-import org.usfirst.frc.team1989.robot.commands.auto.Test;
+import org.usfirst.frc.team1989.robot.commands.auto.*;
 import org.usfirst.frc.team1989.robot.subsystems.BoxArm;
 import org.usfirst.frc.team1989.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1989.robot.subsystems.Tower;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 
@@ -41,9 +41,22 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	
 	public String gameData;
+	
+	boolean btn0;
+	boolean btn1;
+	boolean btn2;
+	boolean btn3;
+	
+	double slider0;
+	double slider1;
+	double slider2;
+	double slider3;
 
+	//CANTalon1989 slaveMotor;
+	//CANTalon1989 masterMotor;
+	
 	Command m_autonomousCommand;
-	//SendableChooser<Command> autoChooser = new SendableChooser<>();
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,20 +65,27 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		//autoChooser.addDefault("Default Auto", new DontMove());
-		//autoChooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", autoChooser);
 		RobotMap.frontLeft.setInverted(true);
 		RobotMap.frontRight.setInverted(true);
 		RobotMap.backLeft.setInverted(true);
 		RobotMap.armsRight.setInverted(true);
-		RobotMap.towerLeft.set(ControlMode.Follower, 5);
 		RobotMap.towerLeft.setNeutralMode(NeutralMode.Brake);
 		RobotMap.towerRight.setNeutralMode(NeutralMode.Brake);
+		
+		/*slaveMotor = RobotMap.towerLeft; 
+		masterMotor = RobotMap.towerRight;
+		slaveMotor.changeControlMode(CANTalon.TalonControlMode.Follower);
+		slaveMotor.set(masterMotor.getDeviceID());*/
+		
 		CameraServer.getInstance().startAutomaticCapture();
 		//RobotMap.r1.setAutomaticMode(true);
 		
-		m_autonomousCommand = new Test();
+		//m_autonomousCommand = new Test();
+		
+		//autoChooser.addDefault("Default Command", new AutoSelector("default"));
+		//autoChooser.addObject("Left/Scale", new AutoSelector("Left/Scale"));
+		SmartDashboard.putData("Auto mode", autoChooser);
+
 	}
 
 	/**
@@ -98,7 +118,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		//m_autonomousCommand = (Command) autoChooser.getSelected();
 		
-		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -106,7 +126,63 @@ public class Robot extends TimedRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
+	
+		btn0 = SmartDashboard.getBoolean("DB/Button 0", false);
+		btn1 = SmartDashboard.getBoolean("DB/Button 1", false);
+		btn2 = SmartDashboard.getBoolean("DB/Button 2", false);
+		btn3 = SmartDashboard.getBoolean("DB/Button 3", false);
+		
+		slider0 = SmartDashboard.getNumber("DB/Slider 0", 0);
+		slider1 = SmartDashboard.getNumber("DB/Slider 1", 0);
+		slider2 = SmartDashboard.getNumber("DB/Slider 2", 0);
+		slider3 = SmartDashboard.getNumber("DB/Slider 3", 0);
+		
+		switch(gameData.charAt(0)) {
+			case('L'):
+				if(btn0) {
+					if(btn3) {
+						m_autonomousCommand = new StartLeftSwitchLeft();
+					} else {
+						m_autonomousCommand = new StartLeftScaleLeft();
+					}
+				} else if(btn1) {
+					if(btn3) {
+						m_autonomousCommand = new StartCenterSwitchLeft();
+					} else {
+						//m_autonomousCommand = new StartCenterScaleLeft();
+					}
+				} else if(btn2) {
+					if(btn3) {
+						//m_autonomousCommand = new StartRightSwitchLeft();
+					} else {
+						// m_autonomousCommand = new StartRightScaleLeft();
+					}
+				}
+			break;
+			case('R'):
+				if(btn0) {
+					if(btn3) {
+						m_autonomousCommand = new StartLeftSwitchRight();
+					} else {
+						m_autonomousCommand = new StartLeftScaleRight();
+					}
+				} else if(btn1) {
+					if(btn3) {
+						m_autonomousCommand = new StartCenterSwitchRight();
+					} else {
+						//m_autonomousCommand = new StartCenterScaleRight();
+					}
+				} else if(btn2) {
+					if(btn3) {
+						//m_autonomousCommand = new StartRightSwitchRight();
+					} else {
+						// m_autonomousCommand = new StartRightScaleRight();
+					}
+				}
+			break;
+		}
+		
+		
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
@@ -127,6 +203,10 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		
+		RobotMap.dashboardTimer.stop();
+		RobotMap.dashboardTimer.reset();
+		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -138,6 +218,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**

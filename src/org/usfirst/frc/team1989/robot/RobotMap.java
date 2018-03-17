@@ -26,13 +26,14 @@ public class RobotMap {
 	static CANTalon1989 backRight = new CANTalon1989(9);
 	static CANTalon1989 armsLeft = new CANTalon1989(2);
 	static CANTalon1989 armsRight = new CANTalon1989(1);
-	static CANTalon1989 towerLeft = new CANTalon1989(4);
+	static CANTalon1989 towerLeft = new CANTalon1989(8);
 	static CANTalon1989 towerRight = new CANTalon1989(5);
 	
 	static Servo servo = new Servo(0);
 	public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();  
 
 	public static Timer delayTimer = new Timer();
+	public static Timer dashboardTimer = new Timer();
 	
 	/*public static Ultrasonic r1 = new Ultrasonic(9,8);
 	public static Ultrasonic r2 = new Ultrasonic(7,6);
