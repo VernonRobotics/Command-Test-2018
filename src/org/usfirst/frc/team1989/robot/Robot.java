@@ -24,8 +24,6 @@ import org.usfirst.frc.team1989.robot.subsystems.Tower;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 
-
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -39,18 +37,22 @@ public class Robot extends TimedRobot {
 	public static final BoxArm boxArm = new BoxArm(RobotMap.armsLeft, RobotMap.armsRight);
 	public static final Tower tower = new Tower(RobotMap.towerRight, RobotMap.towerRight);
 	public static OI m_oi;
+	public RecordJoystick recordJoystick = new RecordJoystick(OI.driveStick, OI.uStick);
 	
 	public String gameData;
 	
-	boolean btn0;
-	boolean btn1;
-	boolean btn2;
-	boolean btn3;
+	boolean rightBtn;
+	boolean centerBtn;
+	boolean leftBtn;
+	boolean switchBtn;
 	
 	double slider0;
 	double slider1;
 	double slider2;
 	double slider3;
+	
+	char scaleData;
+	char switchData;
 
 	//CANTalon1989 slaveMotor;
 	//CANTalon1989 masterMotor;
@@ -116,6 +118,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
+		
+		
 		//m_autonomousCommand = (Command) autoChooser.getSelected();
 		
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -127,59 +132,64 @@ public class Robot extends TimedRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 	
-		btn0 = SmartDashboard.getBoolean("DB/Button 0", false);
-		btn1 = SmartDashboard.getBoolean("DB/Button 1", false);
-		btn2 = SmartDashboard.getBoolean("DB/Button 2", false);
-		btn3 = SmartDashboard.getBoolean("DB/Button 3", false);
+		leftBtn = SmartDashboard.getBoolean("DB/Button 0", false);
+		centerBtn = SmartDashboard.getBoolean("DB/Button 1", false);
+		rightBtn = SmartDashboard.getBoolean("DB/Button 2", false);
+		switchBtn = SmartDashboard.getBoolean("DB/Button 3", false);
 		
 		slider0 = SmartDashboard.getNumber("DB/Slider 0", 0);
 		slider1 = SmartDashboard.getNumber("DB/Slider 1", 0);
 		slider2 = SmartDashboard.getNumber("DB/Slider 2", 0);
 		slider3 = SmartDashboard.getNumber("DB/Slider 3", 0);
 		
-		switch(gameData.charAt(0)) {
-			case('L'):
-				if(btn0) {
-					if(btn3) {
+		scaleData = gameData.charAt(1);
+		switchData = gameData.charAt(0);
+		
+		/*
+		 * btn0 pressed = robot on left
+		 * btn1 pressed = robot in center
+		 * btn2 pressed = robot on right
+		 * btn3 pressed = switch
+		 */
+		
+		if(gameData.length() > 0) {
+			if(leftBtn == true) {
+				if(switchBtn == true) {
+					if(switchData == 'L') {
 						m_autonomousCommand = new StartLeftSwitchLeft();
 					} else {
+						m_autonomousCommand = new CrossAutoLine();
+					}
+				} else if(switchBtn == false) {
+					if(scaleData == 'L') {
 						m_autonomousCommand = new StartLeftScaleLeft();
-					}
-				} else if(btn1) {
-					if(btn3) {
-						m_autonomousCommand = new StartCenterSwitchLeft();
-					} else {
-						//m_autonomousCommand = new StartCenterScaleLeft();
-					}
-				} else if(btn2) {
-					if(btn3) {
-						//m_autonomousCommand = new StartRightSwitchLeft();
-					} else {
-						// m_autonomousCommand = new StartRightScaleLeft();
-					}
-				}
-			break;
-			case('R'):
-				if(btn0) {
-					if(btn3) {
-						m_autonomousCommand = new StartLeftSwitchRight();
 					} else {
 						m_autonomousCommand = new StartLeftScaleRight();
 					}
-				} else if(btn1) {
-					if(btn3) {
-						m_autonomousCommand = new StartCenterSwitchRight();
-					} else {
-						//m_autonomousCommand = new StartCenterScaleRight();
-					}
-				} else if(btn2) {
-					if(btn3) {
+				} 
+			} else if(centerBtn == true) {
+				if(switchData == 'R') {
+					m_autonomousCommand = new StartCenterSwitchRight();
+				} else {
+					m_autonomousCommand = new StartCenterSwitchLeft();					
+				}
+			} else if(rightBtn == true) {
+				if(switchBtn == true) {
+					if(switchData == 'R') {
 						//m_autonomousCommand = new StartRightSwitchRight();
 					} else {
-						// m_autonomousCommand = new StartRightScaleRight();
+						m_autonomousCommand = new CrossAutoLine();
 					}
-				}
-			break;
+				} else if(switchBtn == false) {
+					if(scaleData == 'R') {
+						//m_autonomousCommand = new StartRightScaleRight();
+					} else {
+						//m_autonomousCommand = new StartRightScaleLeft();
+					}
+				} 
+			} else {
+				m_autonomousCommand = new CrossAutoLine();
+			}
 		}
 		
 		
@@ -195,10 +205,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		recordJoystick.recordJoystickValue();
 	}
 
 	@Override
 	public void teleopInit() {
+		recordJoystick.resetTimer();
+		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
